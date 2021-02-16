@@ -19,9 +19,16 @@ def prep_corpus(fname):
 
 
 if __name__ == "__main__":
-    corpus, dictionary, docs = prep_corpus()
-    lda_model = models.LdaModel(
+    corpus, dictionary, docs = prep_corpus('pubmed_subset_05.tsv')
+    lda_model_a = models.LdaModel(
         corpus=corpus,
         num_topics=10,
-        id2word=dictionary
+        id2word=dictionary,
+        random_state=5
+    )
+    lda_model_b = models.LdaModel(
+        corpus=corpus,
+        num_topics=10,
+        id2word=dictionary,
+        random_state=10
     )
