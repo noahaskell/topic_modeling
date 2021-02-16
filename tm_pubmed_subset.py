@@ -1,7 +1,7 @@
 from gensim import models, corpora
 
 
-def prep_corpus(fname='pubmed_subset_3k.tsv'):
+def prep_corpus(fname):
     "reads in file, makes a gensim-usable corpus out of it"
 
     with open(fname, 'r') as f:
