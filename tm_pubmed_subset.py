@@ -24,11 +24,15 @@ if __name__ == "__main__":
         corpus=corpus,
         num_topics=10,
         id2word=dictionary,
-        random_state=5
+        random_state=5,
+        iterations=50,
+        passes=1
     )
     lda_model_b = models.LdaModel(
         corpus=corpus,
         num_topics=10,
         id2word=dictionary,
-        random_state=10
+        random_state=5,  # 10
+        iterations=50,
+        passes=2
     )
