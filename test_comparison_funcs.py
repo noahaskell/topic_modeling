@@ -12,6 +12,12 @@ def test_prep_corpus():
     assert all(check_list), "docs prepared incorrectly, at least in part"
 
 
+def test_compare_models():
+    D = cf.compare_models('sampledata.tsv', seeds=(0, 0))
+    check_list = [x == 0 for x in D.diagonal()]
+    assert all(check_list), "model comparison has gone badly awry"
+
+
 def test_permute_matrix():
     D = np.array([[9, 7, 6, 4],
                   [8, 6, 2, 5],

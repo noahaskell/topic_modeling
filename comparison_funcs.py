@@ -28,6 +28,43 @@ def prep_corpus(fname, delim='\t'):
     return corpus, dictionary, docs
 
 
+def compare_models(fname, n_topic=10, seeds=(0, 1),
+                   iters=(50, 50), passes=(1, 1)):
+    """
+    Fits two LDA models to the same corpus (processed from docs in file fname)
+    setting the random_state, iterations, and passes parameters, returns
+    a jaccard distance matrix of the topic differences between the models
+
+    :param fname: (path and) name of file with lemmatized docs, one per line
+                  to be passed to prep_corpus function
+    :param n_topic: the number of topics for each model to use
+    :param seeds: tuple with random_state values to be passed to LdaModel func
+    :param iters: tuple with iterations values to be passed to LdaModel func
+    :param passes: tuple with passes values to be passed to LdaModel func
+    :returns: distance matrix from calling model_diff function below or
+              mod_a.diff(mod_b, distance='jaccard', normed=False)
+    """
+    corpus, dictionary, docs = prep_corpus(fname)
+    m_a = models.LdaModel(
+        corpus=corpus,
+        num_topics=n_topic,
+        id2word=dictionary,
+        random_state=seeds[0],
+        iterations=iters[0],
+        passes=passes[0]
+    )
+    m_b = models.LdaModel(
+        corpus=corpus,
+        num_topics=n_topic,
+        id2word=dictionary,
+        random_state=seeds[1],
+        iterations=iters[1],
+        passes=passes[1]
+    )
+    D, A = m_a.diff(m_b, distance='jaccard', normed=False)
+    return D
+
+
 def permute_matrix(D, only_matrix=True):
     """
     Permutes rows and columns of distance matrix to minimize distance between
