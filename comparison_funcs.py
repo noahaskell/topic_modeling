@@ -43,7 +43,10 @@ def model_diff(model_a, model_b, n_words=100):
     """
     Calculates the pairwise jaccard distance between topics from
     model_a and model_b
-     - same as matrix from model_a.diff(model_b, num_words=100, normed=False)
+     - same as matrix from model_a.diff(model_b,
+                                        distance='jaccard',
+                                        num_words=100,
+                                        normed=False)
 
     :param model_a: gensim lda model
     :param model_b: gensim lda model
