@@ -6,7 +6,7 @@ def prep_corpus(fname, delim='\t'):
     """
     Reads in file, makes a gensim-usable corpus out of it
 
-    :param fname: (path and) name of files with lemmatized docs, one per line
+    :param fname: (path and) name of file with lemmatized docs, one per line
     :param delim: delimiter in corpus file (default '\t')
     :returns: corpus, dictionary, docs
                corpus: list of lists of bags-of-words (idx, count) tuples
