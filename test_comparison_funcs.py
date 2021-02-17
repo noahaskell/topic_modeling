@@ -11,9 +11,15 @@ def test_permute_matrix():
                   [6, 2, 8, 5],
                   [8, 6, 3, 9],
                   [7, 6, 9, 4]])
-    F = cf.permute_matrix(D)
+    F, r, c = cf.permute_matrix(D, only_matrix=False)
     check_list = [f == e for f, e in zip(F.ravel(), E.ravel())]
     assert all(check_list), "permute_matrix failed"
+    q = [2, 1, 3, 0]
+    b = [1, 2, 0, 3]
+    qr_list = [i == j for i, j in zip(q, r)]
+    bc_list = [i == j for i, j in zip(b, c)]
+    assert all(qr_list), "permuted row indices incorrect"
+    assert all(bc_list), "permuted col indices incorrect"
 
 
 def test_jaccard_distance():

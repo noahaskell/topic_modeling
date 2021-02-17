@@ -1,13 +1,23 @@
 import numpy as np
 
 
-def permute_matrix(D):
+def permute_matrix(D, only_matrix=True):
     """
-    Permutes rows and columns of distance matrix ...
+    Permutes rows and columns of distance matrix to minimize distance between
+    topics from two models, corresponding to the rows and columns of the matrix
+
+    :param D: matrix with elements indicating distance between topics from two
+              models with rows corresponding to topics from one model, columns
+              to another
+    :param only_matrix: bool, if True, only return permuted matrix, else return
+                        permuted row and column indices, too
+    :returns: permuted matrix (and optionally permuted row, col indices)
     """
     nr, nc = D.shape
+    nidx = np.min((nr, nc))
     D = D.copy()
-    for idx in range(nr):
+    ridx, cidx = list(range(nr)), list(range(nc))
+    for idx in range(nidx):
         M = D[idx:, idx:].copy()
         r = M.argmin(0)
         c = np.array([M[r[i], i] for i in range(nc-idx)]).argmin()
@@ -16,12 +26,17 @@ def permute_matrix(D):
         xb = D[r[c]+idx, :].copy()
         D[idx, :] = xb
         D[r[c]+idx, :] = xa
+        ridx[r[c]+idx], ridx[idx] = ridx[idx], ridx[r[c]+idx]
         # swap columns
         ya = D[:, idx].copy()
         yb = D[:, c+idx].copy()
         D[:, idx] = yb
         D[:, c+idx] = ya
-    return D
+        cidx[c+idx], cidx[idx] = cidx[idx], cidx[c+idx]
+    if only_matrix:
+        return D
+    else:
+        return D, ridx, cidx
 
 
 def jaccard_distance(set_a, set_b):
