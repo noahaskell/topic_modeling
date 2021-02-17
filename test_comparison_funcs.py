@@ -3,7 +3,7 @@ import numpy as np
 
 
 def test_prep_corpus():
-    scorp, sdict, sdocs = cf.prep_corpus('sampledata.csv', delim=',')
+    scorp, sdict, sdocs = cf.prep_corpus('sampledata.tsv')
     sc_b = [(0, 1), (1, 1), (2, 1), (3, 1), (4, 1)]
     sd_b = ['Human', 'exportin-1', 'XPO1', 'key', 'nuclear-cytoplasmic']
     check_list = [x == y for x, y in zip(scorp[0], sc_b)]
