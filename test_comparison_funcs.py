@@ -2,6 +2,16 @@ import comparison_funcs as cf
 import numpy as np
 
 
+def test_prep_corpus():
+    scorp, sdict, sdocs = cf.prep_corpus('sampledata.csv', delim=',')
+    sc_b = [(0, 1), (1, 1), (2, 1), (3, 1), (4, 1)]
+    sd_b = ['Human', 'exportin-1', 'XPO1', 'key', 'nuclear-cytoplasmic']
+    check_list = [x == y for x, y in zip(scorp[0], sc_b)]
+    assert all(check_list), "corpus prepared incorrectly, at least in part"
+    check_list = [x == y for x, y in zip(sdocs[0], sd_b)]
+    assert all(check_list), "docs prepared incorrectly, at least in part"
+
+
 def test_permute_matrix():
     D = np.array([[9, 7, 6, 4],
                   [8, 6, 2, 5],
@@ -30,15 +40,8 @@ def test_jaccard_distance():
 
 
 def test_model_diff():
-    from gensim import models, corpora
-    with open('sampledata.csv', 'r') as f:
-        docs_full = f.readlines()
-    docs = [x.split(',')[2].split() for x in docs_full[1:]]
-    for doc in docs:
-        while '<NUMBER>' in doc:
-            doc.remove('<NUMBER>')
-    dictionary = corpora.Dictionary(docs)
-    corpus = [dictionary.doc2bow(doc) for doc in docs]
+    from gensim import models
+    corpus, dictionary, docs = cf.prep_corpus('sampledata.csv', delim=',')
     mod_a = models.LdaModel(
         corpus=corpus,
         num_topics=5,

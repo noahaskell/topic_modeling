@@ -1,4 +1,31 @@
 import numpy as np
+from gensim import models, corpora
+
+
+def prep_corpus(fname, delim='\t'):
+    """
+    Reads in file, makes a gensim-usable corpus out of it
+
+    :param fname: (path and) name of files with lemmatized docs, one per line
+    :param delim: delimiter in corpus file (default '\t')
+    :returns: corpus, dictionary, docs
+               corpus: list of lists of bags-of-words (idx, count) tuples
+               dictionary: gensim.corpora.Dictionary instance
+               docs: list of lists of words in the bags in corpus
+    """
+
+    with open(fname, 'r') as f:
+        docs_full = f.readlines()
+
+    docs = [x.split(delim)[1].split() for x in docs_full]
+    for doc in docs:
+        while '<NUMBER>' in doc:
+            doc.remove('<NUMBER>')
+
+    dictionary = corpora.Dictionary(docs)
+    corpus = [dictionary.doc2bow(doc) for doc in docs]
+
+    return corpus, dictionary, docs
 
 
 def permute_matrix(D, only_matrix=True):
