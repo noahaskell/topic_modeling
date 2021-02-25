@@ -1,4 +1,5 @@
 import numpy as np
+import requests
 from gensim import models, corpora
 
 
@@ -14,8 +15,14 @@ def prep_corpus(fname, delim='\t'):
                docs: list of lists of words in the bags in corpus
     """
 
-    with open(fname, 'r') as f:
-        docs_full = f.readlines()
+    if fname[:4] == 'http':
+        r = requests.get(fname)
+        docs_full = r.text.split('\n')
+        while '' in docs_full:
+            docs_full.remove('')
+    else:
+        with open(fname, 'r') as f:
+            docs_full = f.readlines()
 
     docs = [x.split(delim)[1].split() for x in docs_full]
     for doc in docs:
