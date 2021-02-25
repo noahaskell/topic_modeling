@@ -43,7 +43,7 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
     """
     cols = ['n_topic', 'seed_a', 'seed_b', 'iter_a', 'iter_b',
             'passes_a', 'passes_b', 'mean', 'median', 'min', 'max',
-            'sd', 'mad']
+            'sd', 'mad', 'corpus']
     df = pd.DataFrame(columns=cols)
 
     if seed_start[0] == seed_start[1]:
@@ -54,6 +54,7 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
     seeds = list(seed_start)
 
     for corpus in corpora:
+        corp_num = corpus.split('.')[-2].split('_')[-1]
         for n_topic in n_topics:
             for n_iter in iters:
                 for n_pass in passes:
@@ -85,9 +86,10 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                                    'min': [d_min],
                                    'max': [d_max],
                                    'std': [d_std],
-                                   'mad': [d_mad]}
+                                   'mad': [d_mad],
+                                   'corpus': [corp_num]}
                               )
                         df = pd.concat((df, dft), axis=0)
                         seeds[0] += seed_inc
                         seeds[1] += seed_inc
-    df.to_csv(df_name, index=False)
+                    df.to_csv(df_name, index=False)
