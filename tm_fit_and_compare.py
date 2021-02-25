@@ -24,7 +24,7 @@ from numpy import median
 
 def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                 passes=[(1, 1)], corpora=['pubmed_subset_05.tsv'],
-                df_name='tm_model_comps.csv'):
+                df_name='tm_model_comps.csv', verbose=True):
     """
     For each (set of) value(s) of n_topics, seeds, iterations, passes
     and corpora, fits two topic models, calculates the non-normalized
@@ -93,3 +93,6 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                         seeds[0] += seed_inc
                         seeds[1] += seed_inc
                     df.to_csv(df_name, index=False)
+                    if verbose:
+                        print(corp_num, n_topic, n_iter,
+                              n_pass, rep, end=' :: ')
