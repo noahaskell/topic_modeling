@@ -4,6 +4,7 @@ import comparison_funcs as cf
 # in scipy 1.6.0 it's median_abs_deviation
 # google colab has scipy 1.4.1, so I downgraded to that
 from scipy.stats import median_absolute_deviation as mad
+from numpy import median
 
 # NOTES
 # - different seeds, same iters, passes
@@ -66,7 +67,7 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                             )
                         V = D.ravel()
                         mean = V.mean()
-                        median = V.median()
+                        medi = median(V)
                         d_min = V.min()
                         d_max = V.max()
                         d_std = V.std()
@@ -80,7 +81,7 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                                    'passes_a': [n_pass[0]],
                                    'passes_b': [n_pass[1]],
                                    'mean': [mean],
-                                   'median': [median],
+                                   'median': [medi],
                                    'min': [d_min],
                                    'max': [d_max],
                                    'std': [d_std],
