@@ -1,7 +1,9 @@
 import pandas as pd
 import comparison_funcs as cf
 
-from scipy.stats import median_abs_deviation as mad
+# in scipy 1.6.0 it's median_abs_deviation
+# google colab has scipy 1.4.1, so I downgraded to that
+from scipy.stats import median_absolute_deviation as mad
 
 # NOTES
 # - different seeds, same iters, passes
