@@ -95,3 +95,22 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                     df.to_csv(df_name, index=False)
                     if verbose:
                         print(corp_num, n_topic, n_iter, n_pass, rep)
+
+
+if __name__ == "__main__":
+    n_rep = 100
+    n_topics = [10, 20, 40]
+    seed_start = (0, 1)
+    iterations = [(50, 100), (100, 200), (200, 400), (400, 800), (800, 1600)]
+    passes = [(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
+    corp_nums = ['05', '11', '13', '17', '23', '37', '42']
+    corpora = ['pubmed_subset_' + x + '.tsv' for x in corp_nums]
+    fit_compare(
+        n_rep=n_rep,
+        n_topics=n_topics,
+        seed_start=seed_start,
+        iters=iterations,
+        passes=passes,
+        corpora=corpora,
+        df_name='df_seed_iter_pass.csv'
+    )
