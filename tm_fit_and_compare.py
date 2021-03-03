@@ -6,21 +6,6 @@ import comparison_funcs as cf
 from scipy.stats import median_absolute_deviation as mad
 from numpy import median
 
-# NOTES
-# - different seeds, same iters, passes
-#   - increase iters, hold passes, see if seed diffs decrease
-#   - increase passes, hold iters, see if seed diffs decrease
-# - same seeds, passes, different iters
-#   - increase iters, hold raw diff, see what happens
-#     - e.g., 50-100, 250-300, 450-500, ...
-#   - increase iters, hold rel diff, see what happens
-#     - e.g., 50-100, 250-500, 450-900
-# - same seeds, iters, different passes
-#   - increase passes, hold raw diff
-#     - e.g., 1-2, 3-4, 5-6
-#   - increase passes, hold rel diff
-#     - e.g., 1-2, 3-6, 5-10
-
 
 def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                 passes=[(1, 1)], corpora=['pubmed_subset_05.tsv'],
