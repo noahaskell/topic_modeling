@@ -23,8 +23,10 @@ def prep_corpus(fname):
 if __name__ == "__main__":
     corpus, dictionary, docs = prep_corpus('pubmed_subset_05.tsv')
 
-    prefix = 'ps_'
-    if prefix == 'rs_':
+    prefix = 'id_'
+    if prefix == 'id_':
+        rs, it, ps = (5, 5), (50, 50), (1, 1)
+    elif prefix == 'rs_':
         rs, it, ps = (5, 10), (50, 50), (1, 1)
     elif prefix == 'it_':
         rs, it, ps = (5, 5), (50, 100), (1, 1)
