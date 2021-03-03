@@ -89,7 +89,7 @@ if __name__ == "__main__":
     iterations = [(50, 100), (100, 200), (200, 400), (400, 800), (800, 1600)]
     passes = [(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
     corp_nums = ['05', '11', '13', '17', '23', '37', '42']
-    corpora = ['pubmed_subset_' + x + '.tsv' for x in corp_nums]
+    corpora = ['data/pubmed_subset_' + x + '.tsv' for x in corp_nums]
     fit_compare(
         n_rep=n_rep,
         n_topics=n_topics,
