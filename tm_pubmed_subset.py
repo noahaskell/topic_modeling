@@ -1,4 +1,6 @@
 from gensim import models, corpora
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 
 def prep_corpus(fname):
@@ -20,19 +22,38 @@ def prep_corpus(fname):
 
 if __name__ == "__main__":
     corpus, dictionary, docs = prep_corpus('pubmed_subset_05.tsv')
+
+    prefix = 'it_'
+    rs = (5, 5)
+    it = (50, 100)
+    ps = (1, 1)
+
     lda_model_a = models.LdaModel(
         corpus=corpus,
         num_topics=10,
         id2word=dictionary,
-        random_state=5,
-        iterations=50,
-        passes=1
+        random_state=rs[0],
+        iterations=it[0],
+        passes=ps[0]
     )
     lda_model_b = models.LdaModel(
         corpus=corpus,
         num_topics=10,
         id2word=dictionary,
-        random_state=5,  # 10
-        iterations=50,
-        passes=2
+        random_state=rs[1],
+        iterations=it[1],
+        passes=ps[1]
     )
+
+    D, A = lda_model_a.diff(lda_model_b,
+                            distance='jaccard',
+                            normed=False)
+
+    fig, ax = plt.subplots(1, 1, figsize=(9, 8))
+    sns.heatmap(D, vmin=0, vmax=1, ax=ax)
+    ax.set(xlabel='Topic #, Model A',
+           ylabel='Topic #, Model B',
+           title='Pairwise Topic Jaccard Distance')
+    fig = plt.gcf()
+    fig.savefig('figures/' + prefix + 'heatmap.png', bbox_inches='tight')
+    plt.close(fig)
