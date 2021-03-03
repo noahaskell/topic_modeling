@@ -34,4 +34,22 @@ Here is a figure illustrating how the number of `iterations` affects the minimum
 
 <img alt="Minimum Jaccard distance between topics for models with different iterations" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_iter.png" width="100%"/>
 
-(more soon...)
+Along the x-axis, the numbers indicate the number of topics (top), the smaller of the number of iterations (middle), and the larger of the number of iterations (bottom). The figure illustrates pretty clearly that, within each value for number of topics, increasing iterations reduces the minimum distance. The non-minimum distances may well be far away from zero, and the other descriptive statistics don't do a good job telling us much about this, since they are all affected by the fact that many of the distances can be large even if the two models find all the same topics.
+
+Here is a figure illustrating how the number of `passes` affects the minimum distance, holding `iterations` constant at `50` and giving each model the same `random_state` value (a different value for each of 50 repetitions):
+
+<img alt="Minimum Jaccard distance between topics for models with different passes" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass.png" width="100%"/>
+
+This illustrates a similar pattern. For one pass, the minimum distance can be a good bit greater than zero, but as the number of passes increases, the minimum decreases quickly.
+
+Finally, here are figures illustrating the same basic relationships (i.e., between minimum distance and iterations/passes), but with the `random_state` value differing between each pair of models, as well.
+
+Iterations:
+
+<img alt="Minimum Jaccard distance between topics for models with different iterations and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_iter_seeds.png" width="100%"/>
+
+Passes:
+
+<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass_seeds.png" width="100%"/>
+
+
