@@ -10,4 +10,4 @@ Some initial exploration found that, for a given, fixed corpus, the parameters `
 
 Here is a heatmap showing (non-normed) [Jaccard distance](https://en.wikipedia.org/wiki/Jaccard_index) between topics for two models fit with `random_state=5`, `passes=1` and `iterations` equal to 50 for one model (A), 100 for the other (B):
 
-![Jaccard distance between topics for models with different iterations](./figures/it_heatmap.png=100x)
+![Jaccard distance between topics for models with different iterations](https://github.com/noahaskell/topic_modeling/blob/main/figures/it_heatmap.png=100x)
