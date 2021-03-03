@@ -18,7 +18,7 @@ sns.violinplot(x=x_lab_i, y='min', cut=0, data=df_i, ax=ax)
 ax.set(ylabel='min(distance)',
        title='min(dist) x iterations',
        ylim=(0, .2))
-fig.savefig('tm_min_dist_ntop_iter.png', bbox_inches='tight')
+fig.savefig('figures/tm_min_dist_ntop_iter.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots(1, 1, figsize=(12, 6))
@@ -26,7 +26,7 @@ sns.violinplot(x=x_lab_i, y='mad', cut=0, data=df_i, ax=ax)
 ax.set(ylabel='median abs deviation',
        title='mad x iterations',
        ylim=(0.02, .15))
-fig.savefig('tm_mad_dist_ntop_iter.png', bbox_inches='tight')
+fig.savefig('figures/tm_mad_dist_ntop_iter.png', bbox_inches='tight')
 plt.close(fig)
 
 # same seeds, different n_topic, passes
@@ -40,7 +40,7 @@ sns.violinplot(x=x_lab_p, y='min', cut=0, data=df_p, ax=ax)
 ax.set(ylabel='min(distance)',
        title='min(dist) x passes',
        ylim=(0, .2))
-fig.savefig('tm_min_dist_ntop_pass.png', bbox_inches='tight')
+fig.savefig('figures/tm_min_dist_ntop_pass.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots(1, 1, figsize=(12, 6))
@@ -48,7 +48,7 @@ sns.violinplot(x=x_lab_p, y='mad', cut=0, data=df_p, ax=ax)
 ax.set(ylabel='median abs deviation',
        title='mad x passes',
        ylim=(0.02, .15))
-fig.savefig('tm_mad_dist_ntop_pass.png', bbox_inches='tight')
+fig.savefig('figures/tm_mad_dist_ntop_pass.png', bbox_inches='tight')
 plt.close(fig)
 
 # different seeds, n_topic, iterations, passes
@@ -65,7 +65,7 @@ sns.violinplot(x=x_lab_i, y='min', cut=0, data=df_sip, ax=ax)
 ax.set(ylabel='min(distance)',
        title='min(dist) x iters',
        ylim=(0, 1))
-fig.savefig('tm_min_dist_ntop_iter_seeds.png', bbox_inches='tight')
+fig.savefig('figures/tm_min_dist_ntop_iter_seeds.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots(1, 1, figsize=(18, 9))
@@ -73,7 +73,7 @@ sns.violinplot(x=x_lab_p, y='min', cut=0, data=df_sip, ax=ax)
 ax.set(ylabel='min(distance)',
        title='min(dist) x passes',
        ylim=(0, 1))
-fig.savefig('tm_min_dist_ntop_pass_seeds.png', bbox_inches='tight')
+fig.savefig('figures/tm_min_dist_ntop_pass_seeds.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots(1, 1, figsize=(18, 9))
@@ -81,7 +81,7 @@ sns.violinplot(x=x_lab_i, y='mad', cut=0, data=df_sip, ax=ax)
 ax.set(ylabel='mad',
        title='mad x iters',
        ylim=(0.02, .15))
-fig.savefig('tm_mad_dist_ntop_iter_seeds.png', bbox_inches='tight')
+fig.savefig('figures/tm_mad_dist_ntop_iter_seeds.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots(1, 1, figsize=(18, 9))
@@ -89,5 +89,5 @@ sns.violinplot(x=x_lab_p, y='mad', cut=0, data=df_sip, ax=ax)
 ax.set(ylabel='mad',
        title='mad x passes',
        ylim=(0.02, .15))
-fig.savefig('tm_mad_dist_ntop_pass_seeds.png', bbox_inches='tight')
+fig.savefig('figures/tm_mad_dist_ntop_pass_seeds.png', bbox_inches='tight')
 plt.close(fig)
