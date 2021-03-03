@@ -23,10 +23,13 @@ def prep_corpus(fname):
 if __name__ == "__main__":
     corpus, dictionary, docs = prep_corpus('pubmed_subset_05.tsv')
 
-    prefix = 'it_'
-    rs = (5, 5)
-    it = (50, 100)
-    ps = (1, 1)
+    prefix = 'ps_'
+    if prefix == 'rs_':
+        rs, it, ps = (5, 10), (50, 50), (1, 1)
+    elif prefix == 'it_':
+        rs, it, ps = (5, 5), (50, 100), (1, 1)
+    elif prefix == 'ps_':
+        rs, it, ps = (5, 5), (50, 50), (1, 2)
 
     lda_model_a = models.LdaModel(
         corpus=corpus,
@@ -49,7 +52,7 @@ if __name__ == "__main__":
                             distance='jaccard',
                             normed=False)
 
-    fig, ax = plt.subplots(1, 1, figsize=(9, 8))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 8))
     sns.heatmap(D, vmin=0, vmax=1, ax=ax)
     ax.set(xlabel='Topic #, Model A',
            ylabel='Topic #, Model B',
