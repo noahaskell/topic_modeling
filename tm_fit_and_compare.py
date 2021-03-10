@@ -101,8 +101,8 @@ if __name__ == "__main__":
         seed_start=seed_start,
         iters=iterations,
         passes=passes,
-        workers=2,
+        workers=4,
         pr_alpha='asymmetric',
         corpora=corpora,
-        df_name='df_seed_iter_pass.csv'
+        df_name='df_seed_iter_pass_asym.csv'
     )
