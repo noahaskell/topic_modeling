@@ -8,7 +8,8 @@ from numpy import median
 
 
 def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
-                passes=[(1, 1)], corpora=['pubmed_subset_05.tsv'],
+                passes=[(1, 1)], workers=None, pr_alpha='symmetric',
+                corpora=['pubmed_subset_05.tsv'],
                 df_name='tm_model_comps.csv', verbose=True):
     """
     For each (set of) value(s) of n_topics, seeds, iterations, passes
@@ -23,6 +24,8 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                        both incremented each iteration of this process
     :param iters: list of tuples of ints -> iterations args
     :param passes: list of tuples of ints -> passes args
+    :param workers: None or int, if int user LdaMulticore w/ that many workers
+    :param pr_alpha: {'symmetric', 'asymmetric'}, prior on alpha
     :param corpora: list of str -> file names of corpora
     :param df_name: file name for data frame to csv with stats
     """
@@ -49,7 +52,9 @@ def fit_compare(n_rep=10, n_topics=[10], seed_start=(0, 0), iters=[(50, 50)],
                                 n_topic=n_topic,
                                 seeds=seeds,
                                 iters=n_iter,
-                                passes=n_pass
+                                passes=n_pass,
+                                workers=workers,
+                                pr_alpha=pr_alpha
                             )
                         V = D.ravel()
                         mean = V.mean()
@@ -96,6 +101,8 @@ if __name__ == "__main__":
         seed_start=seed_start,
         iters=iterations,
         passes=passes,
+        workers=2,
+        pr_alpha='asymmetric',
         corpora=corpora,
         df_name='df_seed_iter_pass.csv'
     )

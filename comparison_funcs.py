@@ -36,7 +36,8 @@ def prep_corpus(fname, delim='\t'):
 
 
 def compare_models(fname, n_topic=10, seeds=(0, 1),
-                   iters=(50, 50), passes=(1, 1)):
+                   iters=(50, 50), passes=(1, 1),
+                   workers=None, pr_alpha='symmetric'):
     """
     Fits two LDA models to the same corpus (processed from docs in file fname)
     setting the random_state, iterations, and passes parameters, returns
@@ -48,26 +49,52 @@ def compare_models(fname, n_topic=10, seeds=(0, 1),
     :param seeds: tuple with random_state values to be passed to LdaModel func
     :param iters: tuple with iterations values to be passed to LdaModel func
     :param passes: tuple with passes values to be passed to LdaModel func
+    :param workers: None or int, if int use LdaMulticore w/ that many workers
+    :param pr_alpha: {'symmetric', 'asymmetric'}, prior on alpha
     :returns: distance matrix from calling model_diff function below or
               mod_a.diff(mod_b, distance='jaccard', normed=False)
     """
     corpus, dictionary, docs = prep_corpus(fname)
-    m_a = models.LdaModel(
-        corpus=corpus,
-        num_topics=n_topic,
-        id2word=dictionary,
-        random_state=seeds[0],
-        iterations=iters[0],
-        passes=passes[0]
-    )
-    m_b = models.LdaModel(
-        corpus=corpus,
-        num_topics=n_topic,
-        id2word=dictionary,
-        random_state=seeds[1],
-        iterations=iters[1],
-        passes=passes[1]
-    )
+    if workers is None:
+        m_a = models.LdaModel(
+            corpus=corpus,
+            num_topics=n_topic,
+            id2word=dictionary,
+            random_state=seeds[0],
+            iterations=iters[0],
+            passes=passes[0],
+            alpha=pr_alpha
+        )
+        m_b = models.LdaModel(
+            corpus=corpus,
+            num_topics=n_topic,
+            id2word=dictionary,
+            random_state=seeds[1],
+            iterations=iters[1],
+            passes=passes[1],
+            alpha=pr_alpha
+        )
+    elif isinstance(workers, int):
+        m_a = models.LdaMulticore(
+            corpus=corpus,
+            num_topics=n_topic,
+            id2word=dictionary,
+            random_state=seeds[0],
+            iterations=iters[0],
+            passes=passes[0],
+            workers=workers,
+            alpha=pr_alpha
+        )
+        m_b = models.LdaMulticore(
+            corpus=corpus,
+            num_topics=n_topic,
+            id2word=dictionary,
+            random_state=seeds[1],
+            iterations=iters[1],
+            passes=passes[1],
+            workers=workers,
+            alpha=pr_alpha
+        )
     D, A = m_a.diff(m_b, distance='jaccard', normed=False)
     return D
 
