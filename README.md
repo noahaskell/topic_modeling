@@ -42,14 +42,20 @@ Here is a figure illustrating how the number of `passes` affects the minimum dis
 
 This illustrates a similar pattern. For one pass, the minimum distance can be a good bit greater than zero, but as the number of passes increases, the minimum decreases quickly.
 
-Finally, here are figures illustrating the same basic relationships (i.e., between minimum distance and iterations/passes), but with the `random_state` value differing between each pair of models, as well.
+Finally, here are figures illustrating the same basic relationships (i.e., between minimum distance and iterations/passes), but with the `random_state` value differing between each pair of models, as well. The first set of figures illustrate topic (in)consistency between models called with the input argument `pr_alpha='symmetric'`, which is the default. This argument specifies a symmetric prior on the alpha parameter, which governs the distributions of topics across documents. With a symmetric prior, all topics are equally (im)probable.
 
-Iterations:
+The models were fit and compared using each of four corpora, in an effort to ensure that the results are not due to particular properties of a specific corpus.
 
-<img alt="Minimum Jaccard distance between topics for models with different iterations and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_iter_seeds.png" width="100%"/>
+Here are distributions (across different pairs of random seed values) as a function of the number of topics (common to each of a pair of compared models) and the number of iterations (distinct values for each model), aggregated across corpora:
+
+<img alt="Minimum Jaccard distance between topics for models with different iterations and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_iter_seeds_sym.png" width="100%"/>
+
+Here are the same type of plots for each corpus:
+
+<img alt="Minimum Jaccard distance between topics for models with different iterations and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_iter_2x2_sym.png" width="100%"/>
 
 Passes:
 
-<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass_seeds.png" width="100%"/>
+<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass_seeds_sym.png" width="100%"/>
 
 When two models have different `random_state` values, it looks like they don't find any of the same topics, whether you increase `iterations` or `passes`. This was done with `LdaMulticore`, whereas the `iterations`-only and `passes`-only fits and comparisons were done with `LdaModel`. It's unclear if this could be an issue, but it might be, so it's worth noting. Also, this is all, so far, with just one fairly small corpus. We'll be probing different small corpora and larger corpora to see what effects, if any, these factors might have. We've also discussed modeling and/or constraining the topic distribution (e.g., using a non-uniform prior on the alpha parameter, modeling the number of topics directly).
