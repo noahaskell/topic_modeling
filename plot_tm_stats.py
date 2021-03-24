@@ -62,7 +62,7 @@ if plot_passes:
     plt.close(fig)
 
 if plot_sip:
-    sym_or_asym = 'asym'  # symmetric or asymmetric prior on alpha
+    sym_or_asym = 'sym'  # symmetric or asymmetric prior on alpha
     if sym_or_asym == 'sym':
         df_sip = pd.read_csv('df_seed_iter_pass_mc_sym.csv')
     elif sym_or_asym == 'asym':
