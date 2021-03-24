@@ -60,7 +60,7 @@ Here is the same type of plot, but focusing on passes rather than iterations:
 
 And again for each corpus:
 
-<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_passes_2x2_sym.png" width="100%"/>
+<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass_2x2_sym.png" width="100%"/>
 
 When two models have different `random_state` values, it looks like they don't find any of the same topics, whether you increase `iterations` or `passes`. This was done with `LdaMulticore`, whereas the `iterations`-only and `passes`-only fits and comparisons were done with `LdaModel`. It's unclear if this could be an issue, but it might be, so it's worth noting.
 
@@ -80,6 +80,6 @@ Here is the same type of plot, but focusing on passes rather than iterations:
 
 And again for each corpus:
 
-<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_passes_2x2_asym.png" width="100%"/>
+<img alt="Minimum Jaccard distance between topics for models with different passes and random seeds" src="https://github.com/noahaskell/topic_modeling/blob/main/figures/tm_min_dist_ntop_pass_2x2_asym.png" width="100%"/>
 
 We are currently fitting models to larger corpora to see if, and if so how, this influences topic consistency.
